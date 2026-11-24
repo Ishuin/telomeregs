@@ -74,7 +74,7 @@ Start the interactive conversational REPL by providing the database DSN:
 uv run promptquery postgresql://postgres:postgres@localhost:5432/atlas_erp --tenant acme
 
 # SQLite (Atlas ERP local migrated database):
-uv run promptquery sqlite:///../atlas-erp/backend/atlas_test.db --tenant acme
+uv run promptquery sqlite:///eval/fixtures/atlas_test.db --tenant acme
 ```
 
 Inside the REPL, you can ask multi-turn questions:
@@ -111,7 +111,7 @@ Inside the REPL, you can ask multi-turn questions:
 For automated evaluation against test scenarios, pass a conversation JSON file containing an array of sequential prompts:
 
 ```bash
-uv run promptquery sqlite:///../atlas-erp/backend/atlas_test.db \
+uv run promptquery sqlite:///eval/fixtures/atlas_test.db \
   --conversation-file eval/examples/sales_conversation.json \
   --tenant acme
 ```
@@ -136,7 +136,7 @@ The CLI executes each turn sequentially through `ConversationSession` and prints
 
 ```bash
 # JSON output to stdout (progress messages go to stderr):
-uv run promptquery -q "What is our total inventory valuation?" sqlite:///../atlas-erp/backend/atlas_test.db
+uv run promptquery -q "What is our total inventory valuation?" sqlite:///eval/fixtures/atlas_test.db
 
 # CSV output:
 uv run promptquery -q "List all active departments" --out csv sqlite:///... > depts.csv
@@ -152,7 +152,7 @@ uv run promptquery -q "Top 10 items by price" --out table sqlite:///...
 You can also run PromptQuery with a pre-extracted schema fixture without needing a live connection to introspect:
 
 ```bash
-uv run promptquery sqlite:///../atlas-erp/backend/atlas_test.db \
+uv run promptquery sqlite:///eval/fixtures/atlas_test.db \
   --schema eval/fixtures/atlas.schema.json \
   --tenant acme
 ```

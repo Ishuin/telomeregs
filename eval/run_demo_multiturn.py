@@ -18,7 +18,9 @@ from eval.questions.atlas_multiturn import CONVERSATIONS
 
 def run_demo():
     console = Console()
-    db_path = Path(__file__).resolve().parent.parent.parent / "atlas-erp" / "backend" / "atlas_test.db"
+    db_path = Path(__file__).resolve().parent / "fixtures" / "atlas_test.db"
+    if not db_path.exists():
+        db_path = Path(__file__).resolve().parent.parent.parent / "atlas-erp" / "backend" / "atlas_test.db"
     conn_uri = f"sqlite:///{db_path}"
     
     console.print(Panel(f"[bold cyan]Connecting to Atlas ERP Database[/bold cyan]\n[dim]{conn_uri}[/dim]", border_style="cyan"))
