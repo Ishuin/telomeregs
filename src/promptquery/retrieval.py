@@ -96,12 +96,17 @@ _LOGICAL_FK_TARGETS: dict[str, str] = {
     "cost_center_id": "fin_cost_centers",
     "profit_center_id": "fin_profit_centers",
     "currency_id": "fin_currencies",
+    "currency_code": "fin_currencies",
+    "default_currency_code": "fin_currencies",
     "department_id": "hr_departments",
     "employee_id": "hr_employees",
     "position_id": "hr_positions",
     "project_id": "ps_projects",
     "user_id": "core_users",
     "created_by_user_id": "core_users",
+    "created_by": "core_users",
+    "approved_by": "core_users",
+    "actor_user_id": "core_users",
     "category_id": "inv_item_categories",
     "journal_entry_id": "fin_journal_entries",
 }
@@ -208,7 +213,7 @@ class TfIdfRetriever:
 
             # Boost tables from previous turns in multi-turn conversations
             if table.name.lower() in boost_set or table.qualified_name.lower() in boost_set:
-                score += 1.0
+                score += 0.05
 
             scored.append((table, score))
         scored.sort(key=lambda x: x[1], reverse=True)

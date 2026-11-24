@@ -108,12 +108,12 @@ class ConversationSession:
         # Repeat current question twice so its specific terms out-weight background context
         parts = [current_question, current_question]
 
-        # Check if question has demonstratives / follow-up words
+        # Check if question has demonstratives / follow-up words that need prior context
         q_lower = current_question.lower()
         has_followup_cue = any(
-            w in q_lower
-            for w in ("that", "this", "it", "them", "those", "these", "filter", "break down", "group", "sort", "who", "show only")
-        )
+            k in q_lower
+            for k in ("filter", "break down", "group", "sort", "show only", "only")
+        ) or bool(set(q_lower.split()) & {"that", "this", "it", "them"})
 
         last = self.turns[-1]
         if has_followup_cue and last.user_prompt:

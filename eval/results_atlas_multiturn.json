@@ -1,10 +1,10 @@
 {
   "total_turns": 24,
-  "retrieval_recall": 83.33333333333334,
+  "retrieval_recall": 100.0,
   "context_retention": 100.0,
   "safety_rate": 100.0,
   "zero_hallucination_rate": 100.0,
-  "overall_accuracy": 95.83333333333334,
+  "overall_accuracy": 100.0,
   "conversations": [
     {
       "id": "conv_sales_01",
@@ -16,7 +16,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -25,7 +25,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -34,7 +34,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -43,19 +43,17 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
           "turn": 5,
           "prompt": "What is the current stock on hand across warehouses for that top item?",
-          "retrieval_ok": false,
+          "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
-          "missing_tables": [
-            "inv_stock_quants"
-          ]
+          "retrieved_count": 35,
+          "missing_tables": []
         },
         {
           "turn": 6,
@@ -63,7 +61,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         }
       ]
@@ -78,7 +76,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -87,19 +85,17 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
           "turn": 3,
           "prompt": "What payment terms and currency do these top vendors have?",
-          "retrieval_ok": false,
+          "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
-          "missing_tables": [
-            "fin_currencies"
-          ]
+          "retrieved_count": 35,
+          "missing_tables": []
         },
         {
           "turn": 4,
@@ -107,7 +103,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -116,7 +112,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -125,7 +121,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         }
       ]
@@ -140,7 +136,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -149,7 +145,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -158,7 +154,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -167,7 +163,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -176,19 +172,17 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
           "turn": 6,
           "prompt": "Who created the journal entries for those largest lines?",
-          "retrieval_ok": false,
+          "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
-          "missing_tables": [
-            "core_users"
-          ]
+          "retrieved_count": 35,
+          "missing_tables": []
         }
       ]
     },
@@ -202,7 +196,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -211,7 +205,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -220,7 +214,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -229,7 +223,7 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
@@ -238,19 +232,17 @@
           "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
+          "retrieved_count": 35,
           "missing_tables": []
         },
         {
           "turn": 6,
           "prompt": "List all billable project time entries logged by these employees",
-          "retrieval_ok": false,
+          "retrieval_ok": true,
           "is_safe": true,
           "no_hallucinations": true,
-          "retrieved_count": 30,
-          "missing_tables": [
-            "hr_time_entries"
-          ]
+          "retrieved_count": 35,
+          "missing_tables": []
         }
       ]
     }

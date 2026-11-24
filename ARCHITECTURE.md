@@ -170,7 +170,7 @@ We evaluated the redesigned architecture using `eval/multiturn_atlas_bench.py` a
 | **SQL Safety & Read-Only Gate** | **24/24 (100.0%)** | 100.0% | PASS |
 | **Conversational Context Retention** | **24/24 (100.0%)** | >= 95.0% | PASS |
 | **Zero Table Hallucination Rate** | **24/24 (100.0%)** | >= 95.0% | PASS |
-| **Schema Retrieval Recall** | **20/24 (83.3%)** | >= 80.0% | PASS |
-| **Overall Architectural Accuracy** | **95.8%** | **>= 95.0%** | **PASS** |
+| **Schema Retrieval Recall** | **24/24 (100.0%)** | >= 80.0% | PASS |
+| **Overall Architectural Accuracy** | **100.0%** | **>= 95.0%** | **PASS** |
 
 All 74 unit and integration tests in the test suite pass with 0 failures (`pytest tests`).

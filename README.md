@@ -197,8 +197,8 @@ Atlas ERP Multi-Turn Benchmark Results (4 Conversations, 24 Sequential Turns):
 - SQL Safety & Read-Only Gate:     24/24 (100.0%)
 - Conversational Context Retention: 24/24 (100.0%)
 - Zero Table Hallucination Rate:   24/24 (100.0%)
-- Schema Retrieval Recall:         20/24 (83.3%)
-- Overall Architectural Accuracy:   95.8% (Target: >= 95.0%)
+- Schema Retrieval Recall:         24/24 (100.0%)
+- Overall Architectural Accuracy:   100.0% (Target: >= 95.0%)
 ```
 
 ---

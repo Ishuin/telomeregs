@@ -73,8 +73,8 @@ def run_multiturn_benchmark(
     selector_llm: LLMClient | None = None,
     use_llm_for_sql: bool = False,
     top_k: int = 50,
-    select_n: int = 15,
-    max_tables: int = 30,
+    select_n: int = 20,
+    max_tables: int = 35,
 ) -> dict:
     console = Console()
     schema = load_atlas_schema()

@@ -89,8 +89,8 @@ def run_question(
     *,
     session: ConversationSession | None = None,
     top_k: int = 50,
-    select_n: int = 15,
-    max_tables: int = 30,
+    select_n: int = 20,
+    max_tables: int = 35,
     confirm: bool = False,
     max_repair: int = 1,
     progress: Console | None = None,
@@ -308,13 +308,13 @@ def run_question(
 @click.option(
     "--select",
     "select_n",
-    default=15,
+    default=20,
     show_default=True,
     help="Tables the LLM selector picks from the TF-IDF candidates.",
 )
 @click.option(
     "--max-tables",
-    default=25,
+    default=35,
     show_default=True,
     help="Maximum tables sent to the LLM after FK expansion.",
 )
