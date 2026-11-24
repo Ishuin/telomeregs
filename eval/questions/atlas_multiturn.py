@@ -89,7 +89,7 @@ CONVERSATIONS: list[MultiTurnConversation] = [
                 prompt="Which items were ordered most frequently in those confirmed orders?",
                 must_retrieve=("sales_orders", "sales_order_lines", "inv_items"),
                 reference_sql="""
-                    SELECT i.name, SUM(ol.quantity) AS total_quantity
+                    SELECT i.name, SUM(ol.ordered_quantity) AS total_quantity
                     FROM sales_order_lines ol
                     JOIN sales_orders o ON ol.order_id = o.id
                     JOIN inv_items i ON ol.item_id = i.id
@@ -105,9 +105,10 @@ CONVERSATIONS: list[MultiTurnConversation] = [
                 prompt="What is the current stock on hand across warehouses for that top item?",
                 must_retrieve=("inv_items", "inv_stock_quants", "inv_warehouses"),
                 reference_sql="""
-                    SELECT w.name AS warehouse_name, sq.quantity
+                    SELECT w.name AS warehouse_name, sq.on_hand_qty
                     FROM inv_stock_quants sq
-                    JOIN inv_warehouses w ON sq.warehouse_id = w.id
+                    JOIN inv_bins b ON sq.bin_id = b.id
+                    JOIN inv_warehouses w ON b.warehouse_id = w.id
                     JOIN inv_items i ON sq.item_id = i.id
                     WHERE i.name = (
                         SELECT i2.name
@@ -116,7 +117,7 @@ CONVERSATIONS: list[MultiTurnConversation] = [
                         JOIN inv_items i2 ON ol2.item_id = i2.id
                         WHERE o2.status = 'CONFIRMED'
                         GROUP BY i2.id, i2.name
-                        ORDER BY SUM(ol2.quantity) DESC
+                        ORDER BY SUM(ol2.ordered_quantity) DESC
                         LIMIT 1
                     );
                 """,
@@ -127,9 +128,9 @@ CONVERSATIONS: list[MultiTurnConversation] = [
                 prompt="Are there any open purchase orders for that item?",
                 must_retrieve=("inv_items", "proc_purchase_orders", "proc_purchase_order_lines"),
                 reference_sql="""
-                    SELECT po.order_number, po.status, pol.quantity, pol.unit_price
+                    SELECT po.po_number, po.status, pol.quantity, pol.unit_cost
                     FROM proc_purchase_order_lines pol
-                    JOIN proc_purchase_orders po ON pol.purchase_order_id = po.id
+                    JOIN proc_purchase_orders po ON pol.po_id = po.id
                     JOIN inv_items i ON pol.item_id = i.id
                     WHERE po.status NOT IN ('CANCELLED', 'CLOSED')
                       AND i.name = (
@@ -139,7 +140,7 @@ CONVERSATIONS: list[MultiTurnConversation] = [
                         JOIN inv_items i2 ON ol2.item_id = i2.id
                         WHERE o2.status = 'CONFIRMED'
                         GROUP BY i2.id, i2.name
-                        ORDER BY SUM(ol2.quantity) DESC
+                        ORDER BY SUM(ol2.ordered_quantity) DESC
                         LIMIT 1
                     );
                 """,
