@@ -124,7 +124,7 @@ In enterprise reporting, single-table answers are rare. Joins must be accurate:
 ### 3.3 Multi-Turn Conversational Context
 The `ConversationSession` object maintains the full sequence of turns (1 through 6):
 - **History Formatting**: When generating SQL for Turn $N$, previous turns are rendered as:
-  ```markdown
+  ````text
   Conversation history (previous turns):
   [Turn 1] User: What are our top 5 customers by sales revenue?
   Generated SQL:
@@ -139,7 +139,7 @@ The `ConversationSession` object maintains the full sequence of turns (1 through
   Result summary: Acme Corp ($124,500), Global Retail ($98,200), TechFlow ($84,100)...
 
   [Turn 2] User: Filter that to only confirmed orders
-  ```
+  ````
 - **Query Mutation Rules**: The model is explicitly instructed:
   - If the prompt is a filter, sort, group, or limit on the previous query, start from the previous SQL as the baseline.
   - If the prompt asks for details about an entity in the previous results (e.g. "show stock on hand for that top item"), use the entity ID/name from the previous turn or subquery it.
