@@ -1,4 +1,4 @@
-from promptquery.conversation import ConversationSession, ConversationTurn
+from promptquery.conversation import ConversationSession
 
 
 def test_conversation_turn_lifecycle():

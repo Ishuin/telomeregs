@@ -1,6 +1,6 @@
 from pathlib import Path
 from promptquery.conversation import ConversationSession
-from promptquery.retrieval import TfIdfRetriever, expand_via_fks
+from promptquery.retrieval import TfIdfRetriever
 from promptquery.schema import Schema
 
 

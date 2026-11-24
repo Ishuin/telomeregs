@@ -15,7 +15,6 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-import time
 from pathlib import Path
 
 import sqlglot
@@ -24,10 +23,10 @@ from rich.console import Console
 from rich.table import Table as RichTable
 
 from promptquery.conversation import ConversationSession
-from eval.questions.atlas_multiturn import CONVERSATIONS, MultiTurnConversation
+from eval.questions.atlas_multiturn import CONVERSATIONS
 from promptquery.llm import make_client, LLMClient, extract_sql
 from promptquery.prompts import build_system_prompt, build_user_prompt
-from promptquery.retrieval import TfIdfRetriever, expand_via_fks, llm_select_tables
+from promptquery.retrieval import TfIdfRetriever, expand_via_fks
 from promptquery.safety import validate_select_only, UnsafeQuery
 from promptquery.schema import Schema
 
@@ -217,7 +216,7 @@ def run_multiturn_benchmark(
     table.add_row("SQL Safety & Read-Only Gate", f"{safety_passed}/{total_turns}", f"{safety_rate:.1f}%")
     table.add_row("Zero Table Hallucination Rate", f"{hallucination_free}/{total_turns}", f"{hallucination_free_rate:.1f}%")
     table.add_section()
-    table.add_row("[bold]Overall Architectural Accuracy[/bold]", f"-", f"[bold green]{overall_accuracy:.1f}%[/bold green]")
+    table.add_row("[bold]Overall Architectural Accuracy[/bold]", "-", f"[bold green]{overall_accuracy:.1f}%[/bold green]")
 
     console.print(table)
 

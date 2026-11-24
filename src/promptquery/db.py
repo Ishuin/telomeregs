@@ -4,7 +4,6 @@ import os
 import sqlite3
 from abc import ABC, abstractmethod
 from typing import Any
-from urllib.parse import urlparse
 
 try:
     import psycopg

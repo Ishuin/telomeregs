@@ -1,6 +1,5 @@
 """Executes and demonstrates a 6-turn multi-turn reporting conversation against atlas_test.db."""
 import sys
-import os
 from pathlib import Path
 
 # Add promptquery to path
@@ -34,7 +33,7 @@ def run_demo():
     console.print(f"\n[bold green]► Demonstrating 6-Turn Reporting Session: {sales_conv.title}[/bold green]\n")
     
     for turn in sales_conv.turns:
-        console.print(f"[bold yellow]═══════════════════════════════════════════════════════════════════════════[/bold yellow]")
+        console.print("[bold yellow]═══════════════════════════════════════════════════════════════════════════[/bold yellow]")
         console.print(f"[bold white][Turn {turn.turn_index}/6] User Prompt:[/bold white] [bold cyan]\"{turn.prompt}\"[/bold cyan]")
         
         # Dialect conversion for SQLite demonstration if needed (Postgres cast to SQLite)

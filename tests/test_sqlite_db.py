@@ -1,7 +1,7 @@
 import sqlite3
 import pytest
 from promptquery.db import Database, SqliteDatabase, is_sqlite
-from promptquery.schema import introspect, Schema
+from promptquery.schema import introspect
 
 
 def test_is_sqlite():

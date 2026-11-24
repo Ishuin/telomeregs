@@ -15,7 +15,7 @@ from prompt_toolkit.history import InMemoryHistory
 from rich.console import Console
 
 from . import __version__
-from .conversation import ConversationSession, ConversationTurn
+from .conversation import ConversationSession
 from .db import BaseDatabase, Database
 from .llm import LLMClient, LLMError, extract_sql, make_client
 from .prompts import build_system_prompt, build_user_prompt
