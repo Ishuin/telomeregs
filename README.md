@@ -2,7 +2,7 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache_2.0-4ee07a?labelColor=0a0b10)](LICENSE)
 [![Python: 3.10+](https://img.shields.io/badge/python-3.10%2B-4ee07a?labelColor=0a0b10)](pyproject.toml)
-[![Architecture Accuracy](https://img.shields.io/badge/Benchmark-95.8%25-4ee07a?labelColor=0a0b10)](ARCHITECTURE.md)
+[![Architecture Accuracy](https://img.shields.io/badge/Benchmark-100.0%25-4ee07a?labelColor=0a0b10)](ARCHITECTURE.md)
 
 PromptQuery is an enterprise AI Report Bot engineered for production ERP schemas. It allows non-technical users, business analysts, and executives to query complex databases in plain English.
 
@@ -255,5 +255,5 @@ promptquery/
     ├── questions/
     │   └── atlas_multiturn.py       # 4 multi-turn conversations (24 sequential turns)
     ├── multiturn_atlas_bench.py     # Multi-turn benchmark evaluation harness
-    └── results_atlas_multiturn.json # Benchmark receipts (95.8% accuracy)
+    └── results_atlas_multiturn.json # Benchmark receipts (100.0% accuracy)
 ```
