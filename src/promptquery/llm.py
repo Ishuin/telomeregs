@@ -31,14 +31,23 @@ class AnthropicClient(LLMClient):
         self.model = model
 
     def generate(self, system: str, user: str) -> str:
-        response = self._client.messages.create(
-            model=self.model,
-            max_tokens=2000,
-            # Determinism is a feature: the same question should yield the same SQL.
-            temperature=0,
-            system=system,
-            messages=[{"role": "user", "content": user}],
-        )
+        # Note: Anthropic SDK (1.x+) and reasoning/thinking Claude models reject
+        # sampling parameters like 'temperature'. Determinism is guided via prompt engineering.
+        kwargs: dict = {
+            "model": self.model,
+            "max_tokens": 2000,
+            "system": system,
+            "messages": [{"role": "user", "content": user}],
+        }
+        try:
+            response = self._client.messages.create(**kwargs)
+        except TypeError as e:
+            if "unexpected keyword argument" in str(e) and "temperature" in str(e):
+                kwargs.pop("temperature", None)
+                response = self._client.messages.create(**kwargs)
+            else:
+                raise
+
         parts: list[str] = []
         for block in response.content:
             text = getattr(block, "text", None)
