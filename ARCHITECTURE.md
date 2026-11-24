@@ -173,4 +173,4 @@ We evaluated the redesigned architecture using `eval/multiturn_atlas_bench.py` a
 | **Schema Retrieval Recall** | **24/24 (100.0%)** | >= 80.0% | PASS |
 | **Overall Architectural Accuracy** | **100.0%** | **>= 95.0%** | **PASS** |
 
-All 74 unit and integration tests in the test suite pass with 0 failures (`pytest tests`).
+All 81 unit and integration tests in the test suite pass with 0 failures (`pytest tests`).

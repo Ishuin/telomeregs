@@ -170,20 +170,21 @@ uv run --extra dev pytest
 ```
 Output:
 ```
-collected 74 items
-tests\test_atlas_retrieval.py ...                                        [  4%]
-tests\test_cli_multiturn.py .                                            [  5%]
-tests\test_cli_oneshot.py ............                                   [ 21%]
-tests\test_conversation.py .                                             [ 22%]
-tests\test_llm_table_selector.py ......                                  [ 31%]
-tests\test_make_client.py ss.                                            [ 35%]
-tests\test_prompts_enums.py ......                                       [ 43%]
-tests\test_repair.py ........                                            [ 54%]
-tests\test_retrieval.py ........                                         [ 64%]
-tests\test_safety.py ....................                                [ 91%]
-tests\test_schema_serialization.py ...                                   [ 95%]
+collected 81 items
+tests\test_atlas_retrieval.py ...                                        [  3%]
+tests\test_cli_multiturn.py .                                            [  4%]
+tests\test_cli_oneshot.py ............                                   [ 19%]
+tests\test_conversation.py .                                             [ 20%]
+tests\test_llm_clients.py .......                                        [ 29%]
+tests\test_llm_table_selector.py ......                                  [ 37%]
+tests\test_make_client.py ss.                                            [ 40%]
+tests\test_prompts_enums.py ......                                       [ 48%]
+tests\test_repair.py ........                                            [ 58%]
+tests\test_retrieval.py ........                                         [ 67%]
+tests\test_safety.py ....................                                [ 92%]
+tests\test_schema_serialization.py ...                                   [ 96%]
 tests\test_sqlite_db.py ...                                              [100%]
-======================== 72 passed, 2 skipped in 1.3s =========================
+======================== 79 passed, 2 skipped in 1.9s =========================
 ```
 
 ### 2. Run the Atlas ERP Multi-Turn Benchmark
