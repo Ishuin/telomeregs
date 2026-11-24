@@ -1,9 +1,3 @@
-"""Execution-guided repair: run the generated SQL and, if the database rejects it,
-feed the database's own error back to the model for a bounded number of repair rounds.
-
-Only hard execution errors trigger a repair. Empty results don't — an empty result is
-often the correct answer, and "fixing" it risks replacing a right answer with a wrong one.
-"""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -13,12 +7,12 @@ from .llm import LLMClient, extract_sql
 from .safety import UnsafeQuery, validate_select_only
 
 if TYPE_CHECKING:
-    from .db import Database
+    from .db import BaseDatabase
 
 
 REPAIR_PROMPT = """\
 The query below failed when run against the database. Fix it and return a corrected
-query, following all the rules above (including the schema's enum value lists).
+query, following all the rules above (including the schema's enum value lists and table structure).
 
 Question: {question}
 
@@ -42,22 +36,20 @@ class RepairResult:
 
 
 def execute_with_repair(
-    db: "Database",
+    db: "BaseDatabase",
     llm: LLMClient,
     system_prompt: str,
     question: str,
     sql: str,
     *,
-    max_repair: int = 1,
+    max_repair: int = 2,
+    dialect: str = "postgres",
     confirm_cb: Callable[[str], bool] | None = None,
     progress_cb: Callable[[str], None] | None = None,
 ) -> RepairResult:
-    """Execute `sql`; on a database error, ask the model to repair it (≤ max_repair rounds).
+    """Execute `sql`; on a database error, ask the model to repair it (<= max_repair rounds).
 
-    Repaired SQL goes through validate_select_only before it is ever executed — the
-    safety layer applies to every attempt, not just the first. If a repair fails safety,
-    comes back empty, or the model errors, the original failure is returned unchanged.
-    `confirm_cb` (REPL confirm mode) is asked before any repaired query runs.
+    Repaired SQL goes through validate_select_only before it is ever executed.
     """
     attempts = 0
     current = sql
@@ -65,15 +57,14 @@ def execute_with_repair(
         try:
             cols, rows = db.execute(current)
             return RepairResult(current, cols, rows, None, attempts)
-        except Exception as e:  # psycopg errors carry the message we want to feed back
+        except Exception as e:
             error = str(e)
 
         if attempts >= max_repair:
             return RepairResult(current, error=error, attempts=attempts)
         attempts += 1
         if progress_cb:
-            progress_cb(f"query failed ({error.splitlines()[0]}); repairing "
-                        f"[{attempts}/{max_repair}]")
+            progress_cb(f"query failed ({error.splitlines()[0]}); repairing [{attempts}/{max_repair}]")
 
         try:
             raw = llm.generate(
@@ -87,7 +78,7 @@ def execute_with_repair(
         if not repaired or repaired == current:
             return RepairResult(current, error=error, attempts=attempts)
         try:
-            validate_select_only(repaired)
+            validate_select_only(repaired, dialect=dialect)
         except UnsafeQuery:
             return RepairResult(current, error=error, attempts=attempts)
 

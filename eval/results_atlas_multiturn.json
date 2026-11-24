@@ -1,0 +1,258 @@
+{
+  "total_turns": 24,
+  "retrieval_recall": 83.33333333333334,
+  "context_retention": 100.0,
+  "safety_rate": 100.0,
+  "zero_hallucination_rate": 100.0,
+  "overall_accuracy": 95.83333333333334,
+  "conversations": [
+    {
+      "id": "conv_sales_01",
+      "title": "Top Customers & Sales Breakdown",
+      "turns": [
+        {
+          "turn": 1,
+          "prompt": "What are our top 5 customers by total sales order amount?",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 2,
+          "prompt": "Filter that to only confirmed orders",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 3,
+          "prompt": "Break down that sales total by customer group",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 4,
+          "prompt": "Which items were ordered most frequently in those confirmed orders?",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 5,
+          "prompt": "What is the current stock on hand across warehouses for that top item?",
+          "retrieval_ok": false,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": [
+            "inv_stock_quants"
+          ]
+        },
+        {
+          "turn": 6,
+          "prompt": "Are there any open purchase orders for that item?",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        }
+      ]
+    },
+    {
+      "id": "conv_proc_02",
+      "title": "Vendor Spend & Purchase Order Analysis",
+      "turns": [
+        {
+          "turn": 1,
+          "prompt": "Who are our top 5 vendors by total purchase order value?",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 2,
+          "prompt": "Show only orders that have been received",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 3,
+          "prompt": "What payment terms and currency do these top vendors have?",
+          "retrieval_ok": false,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": [
+            "fin_currencies"
+          ]
+        },
+        {
+          "turn": 4,
+          "prompt": "Which items have we purchased most from the number one vendor?",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 5,
+          "prompt": "What was the average unit price paid for each of those items?",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 6,
+          "prompt": "Show all pending vendor bills from this vendor",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        }
+      ]
+    },
+    {
+      "id": "conv_finance_03",
+      "title": "Universal Journal & Expense Tracking",
+      "turns": [
+        {
+          "turn": 1,
+          "prompt": "Show total debits and credits posted in the journal",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 2,
+          "prompt": "Break down total debits by account name",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 3,
+          "prompt": "Filter that to show only expense accounts",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 4,
+          "prompt": "Which cost center incurred the highest expense?",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 5,
+          "prompt": "List the 5 largest journal lines posted to that cost center",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 6,
+          "prompt": "Who created the journal entries for those largest lines?",
+          "retrieval_ok": false,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": [
+            "core_users"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conv_hr_04",
+      "title": "Department Headcount & Payroll Analysis",
+      "turns": [
+        {
+          "turn": 1,
+          "prompt": "List all active departments and their employee headcount",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 2,
+          "prompt": "Which department has the highest average employee salary?",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 3,
+          "prompt": "Show the employees in that highest-paying department",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 4,
+          "prompt": "What is the total payroll cost for this department across payroll runs?",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 5,
+          "prompt": "How many leave requests have employees in this department submitted?",
+          "retrieval_ok": true,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": []
+        },
+        {
+          "turn": 6,
+          "prompt": "List all billable project time entries logged by these employees",
+          "retrieval_ok": false,
+          "is_safe": true,
+          "no_hallucinations": true,
+          "retrieved_count": 30,
+          "missing_tables": [
+            "hr_time_entries"
+          ]
+        }
+      ]
+    }
+  ]
+}

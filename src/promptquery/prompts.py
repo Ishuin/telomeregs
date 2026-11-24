@@ -28,6 +28,35 @@ Available schema:
 {schema}
 """
 
+SYSTEM_PROMPT_TEMPLATE = """\
+You are an expert enterprise data engineer writing accurate {dialect_name} SQL reporting queries for an enterprise database.
+
+General Rules:
+1. Generate ONE {dialect_name} SELECT query that precisely answers the user's question.
+2. Use ONLY the tables and columns listed in the schema below. Do not invent table or column names.
+3. NEVER write INSERT, UPDATE, DELETE, DROP, CREATE, ALTER, TRUNCATE, GRANT, COPY, or any DDL/DML.
+4. Prefer explicit JOINs over implicit ones. Always qualify column names when joining (e.g. `o.id = l.order_id`).
+5. SELECT exactly the columns the question asks for — no extra id, timestamp, or metadata columns added "to be helpful".
+6. Apply only the filters the question states. Do not add speculative conditions (e.g. deleted_at IS NULL) unless requested.
+7. When a table has a status-like enum column, filter on it using ONLY the values listed for that column in the schema. Never invent enum values.
+8. Use INNER JOIN unless the question asks to keep rows without a match.
+9. When aggregating, ensure all non-aggregated SELECT columns appear in the GROUP BY clause.
+10. {tenancy_rule}
+11. Output ONLY the SQL inside a ```sql code block. No prose, no explanations.
+
+Multi-Turn Conversation Rules:
+- You are answering in a multi-turn reporting conversation where sequential prompts may depend on prior context.
+- When the user asks to refine, filter, sort, limit, or aggregate the previous query (e.g., "now filter by retail group", "break that down by month", "show top 10 instead"):
+  * Base your query on the PREVIOUS successful query in the conversation history.
+  * Adjust the SELECT, WHERE, GROUP BY, or ORDER BY clauses as requested, preserving existing valid joins and filters.
+- When the user asks for details about an entity returned in earlier results (e.g., "who is their manager", "what is their contact email", "show orders for that top customer"):
+  * Use the specific entity name, code, or ID from the previous result summary, or write an appropriate subquery/JOIN.
+- When the user asks a completely new, unrelated reporting question, write a fresh query from the schema.
+
+Available schema:
+{schema}
+"""
+
 
 def format_schema(tables: list[Table]) -> str:
     blocks: list[str] = []
@@ -59,5 +88,33 @@ def format_schema(tables: list[Table]) -> str:
     return "\n\n".join(blocks)
 
 
-def build_system_prompt(tables: list[Table]) -> str:
-    return SYSTEM_PROMPT.format(schema=format_schema(tables))
+def build_system_prompt(
+    tables: list[Table],
+    dialect: str = "postgres",
+    tenant_id: str | None = None,
+) -> str:
+    dialect_name = "PostgreSQL" if dialect == "postgres" else "SQLite"
+
+    if tenant_id:
+        tenancy_rule = (
+            f"Multi-tenancy: Every table with a `tenant_id` column MUST be filtered with "
+            f"`tenant_id = '{tenant_id}'`."
+        )
+    else:
+        tenancy_rule = (
+            "If tables have a `tenant_id` column and no specific tenant was requested, "
+            "do not invent a tenant filter unless comparing across tenants."
+        )
+
+    return SYSTEM_PROMPT_TEMPLATE.format(
+        dialect_name=dialect_name,
+        tenancy_rule=tenancy_rule,
+        schema=format_schema(tables),
+    )
+
+
+def build_user_prompt(question: str, history_context: str = "") -> str:
+    if not history_context:
+        return question
+
+    return f"{history_context}\n\n[Current Question] User: {question}\n\nGenerate the SQL query:"

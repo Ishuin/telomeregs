@@ -1,0 +1,8 @@
+[
+  "What are our top 5 customers by total sales order amount?",
+  "Filter that to only confirmed orders",
+  "Break down that sales total by customer group",
+  "Which items were ordered most frequently in those confirmed orders?",
+  "What is the current stock on hand across warehouses for that top item?",
+  "Are there any open purchase orders for that item?"
+]

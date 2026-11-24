@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
+from pathlib import Path
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
-    from .db import Database
+    from .db import BaseDatabase, Database
 
 
 @dataclass(frozen=True)
@@ -114,6 +116,13 @@ class Schema:
     def from_dict(cls, data: dict) -> "Schema":
         return cls(tables=[Table.from_dict(t) for t in data["tables"]])
 
+    @classmethod
+    def from_file(cls, path: str | Path) -> "Schema":
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        cleaned = {k: v for k, v in data.items() if not k.startswith("_")}
+        return cls.from_dict(cleaned)
+
 
 INTROSPECT_TABLES = """
 SELECT n.nspname AS schema,
@@ -181,7 +190,46 @@ ORDER BY ns.nspname, cls.relname, con.conname, k.ord
 """
 
 
-def introspect(db: "Database") -> Schema:
+def _introspect_sqlite(db: Any) -> Schema:
+    table_rows = db.fetch_dicts(
+        "SELECT name FROM sqlite_master WHERE type IN ('table', 'view') "
+        "AND name NOT LIKE 'sqlite_%' AND name != 'alembic_version' ORDER BY name"
+    )
+    tables: dict[str, Table] = {}
+    for row in table_rows:
+        t_name = row["name"]
+        tables[t_name] = Table(schema="public", name=t_name)
+
+        # Get columns
+        col_rows = db.fetch_dicts(f'PRAGMA table_info("{t_name}")')
+        for col in col_rows:
+            tables[t_name].columns.append(Column(
+                name=col["name"],
+                data_type=col.get("type") or "TEXT",
+                nullable=not bool(col.get("notnull", 0)),
+                is_primary_key=bool(col.get("pk", 0)),
+                comment=None,
+                enum_values=None,
+            ))
+
+        # Get foreign keys
+        fk_rows = db.fetch_dicts(f'PRAGMA foreign_key_list("{t_name}")')
+        for fk in fk_rows:
+            ref_table = fk.get("table")
+            from_col = fk.get("from")
+            to_col = fk.get("to")
+            if ref_table and from_col:
+                tables[t_name].foreign_keys.append(ForeignKey(
+                    column=from_col,
+                    referenced_schema="public",
+                    referenced_table=ref_table,
+                    referenced_column=to_col or "id",
+                ))
+
+    return Schema(tables=list(tables.values()))
+
+
+def _introspect_postgres(db: Any) -> Schema:
     tables_rows = db.fetch_dicts(INTROSPECT_TABLES)
     columns_rows = db.fetch_dicts(INTROSPECT_COLUMNS)
     fks_rows = db.fetch_dicts(INTROSPECT_FKS)
@@ -223,3 +271,9 @@ def introspect(db: "Database") -> Schema:
         ))
 
     return Schema(tables=list(tables.values()))
+
+
+def introspect(db: Any) -> Schema:
+    if getattr(db, "dialect", "") == "sqlite":
+        return _introspect_sqlite(db)
+    return _introspect_postgres(db)
